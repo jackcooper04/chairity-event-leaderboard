@@ -58,6 +58,7 @@ app.get("/update",(req,res,next) => {
 
     console.log(`stdout: ${stdout}`);
 });
+res.send('OK')
 })
 
 module.exports = app;

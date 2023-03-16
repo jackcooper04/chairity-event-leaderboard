@@ -54,11 +54,16 @@ app.get("/ping",(req,res,next)=>{
 });
 
 app.get("/update",(req,res,next) => {
-  exec("cd /home/ubuntu/chairity-event-leaderboard/scripts && sudo ./update.sh ", (error, stdout, stderr) => {
+  res.send('OK')
+  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
+  git reset --hard &&
+  git pull &&
+  sudo pm2 restart server
+  `, (error, stdout, stderr) => {
 
     console.log(`stdout: ${stdout}`);
 });
-res.send('OK')
+
 })
 
 module.exports = app;

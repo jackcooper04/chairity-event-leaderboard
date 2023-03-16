@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 //Assign Routes
 
 app.get("/ping",(req,res,next)=>{
-  res.send('OK1')
+  res.send('OK12')
 });
 
 app.get("/update",(req,res,next) => {

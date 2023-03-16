@@ -1,6 +1,7 @@
 //Import Packages
 const express = require('express');
 const fs = require('fs')
+const { exec } = require("child_process");
 const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -51,5 +52,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.get("/ping",(req,res,next)=>{
   res.send('OK')
 });
+
+app.get("/update",(req,res,next) => {
+  exec("cd /home/ubuntu/chairity-event-leaderboard/scripts && sudo ./update.sh ", (error, stdout, stderr) => {
+
+    console.log(`stdout: ${stdout}`);
+});
+})
 
 module.exports = app;

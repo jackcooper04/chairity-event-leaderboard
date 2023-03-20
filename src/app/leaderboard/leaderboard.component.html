@@ -1,13 +1,15 @@
-<mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
-    <mat-tab label="First">
+<mat-tab-group 
+    mat-stretch-tabs="true" 
+    mat-align-tabs="start">
+    <mat-tab *ngFor="let track of tracks ; let i = index" [attr.data-index]="i" label="Track {{i+1}}">
         <mat-list role="list">
-            <mat-list-item role="listitem" *ngFor="let record of trackOne; let i = index" [attr.data-index]="i">
-                
-                {{record.name}}
+            <mat-list-item  role="listitem" *ngFor="let record of track; let i = index" [attr.data-index]="i"    [ngClass]="{'firstplace': i == 0 }">
+                <span class="postion">{{i+1}}</span>     
+                <span class="name">{{record.name}}</span> 
+                <span class="time" ng-maxlength="5">{{ record.time | timeConvert}}</span>
+
             </mat-list-item>
+            
           </mat-list>
     </mat-tab>
-
-    <mat-tab label="Second">Content 2</mat-tab>
-    <mat-tab label="Third">Content 3</mat-tab>
 </mat-tab-group>

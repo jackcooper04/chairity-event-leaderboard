@@ -1,4 +1,4 @@
-export interface record{
+export interface Record{
     name: string,
     time: number,
     email: string,

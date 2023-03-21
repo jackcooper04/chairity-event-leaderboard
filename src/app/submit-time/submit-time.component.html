@@ -4,19 +4,24 @@
     <form class="example-form">
         <mat-form-field floatLabel="auto">
             <mat-label>Name</mat-label>
-            <input matInput name="name" formControlName="fromDate">
-        </mat-form-field>
-        <mat-form-field floatLabel="auto">
-            <mat-label>Email</mat-label>
-            <input matInput name="email" formControlName="fromDate">
+            <input matInput name="name" formControlName="fromName">
         </mat-form-field>
         <mat-form-field floatLabel="auto">
             <mat-label>Time Trial</mat-label>
-            <input matInput name="time" formControlName="fromDate">
+            <input matInput name="time" formControlName="fromT">
         </mat-form-field>
+        <div>
+            <mat-form-field floatLabel="auto">
+                <mat-label>Email</mat-label>
+                <input matInput name="email" formControlName="fromDate">
+            </mat-form-field>
+            <button mat-raised-button color="accent" (click)="openScanner()"> Scan</button>
+        </div>
+        
         
         <button mat-raised-button color="primary" type="submit" class="submitButton"> Submit Run</button>
     </form>
+    
 </mat-card>
 
 

@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { LeaderboardService} from './leaderboard-service.service';
 import { timeConvertPipe } from './pipes/limit-to.pipe';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ScannerComponent } from './submit-time/scanner/scanner.component';
 
 
 @NgModule({
@@ -20,12 +22,14 @@ import { timeConvertPipe } from './pipes/limit-to.pipe';
     LeaderboardComponent,
     SubmitTimeComponent,
     timeConvertPipe,
+    ScannerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ZXingScannerModule
   ],
   providers: [LeaderboardService, DatePipe],
   bootstrap: [AppComponent]

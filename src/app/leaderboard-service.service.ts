@@ -8,7 +8,7 @@ import { Record } from './record.modal';
 
 export class LeaderboardService {
   private tracks: BehaviorSubject<Record[]> = new BehaviorSubject<Record[]>([]);
-  trackOne: Record[] = [{name: "dude1", time:1679327950000, email: "tada"}, {name: "dude2", time:1679065003697, email: "tada"}];
+  trackOne: Record[] = [{name: "dude1", time:1679065003697, email: "tada"}, {name: "dude2", time:1679065003697, email: "tada"}];
   trackTwo: any[] = [{name: "dude1", time:1679065003698, email: "tada"}, {name: "dude2", time:1679065003697, email: "tada"}];
   trackThree: any[] = [];
   

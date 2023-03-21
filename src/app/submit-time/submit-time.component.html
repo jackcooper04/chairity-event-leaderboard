@@ -1,5 +1,25 @@
-<mat-form-field appearance="outline" floatLabel="auto">
-    <mat-label>From Date</mat-label>
-    <input format="##:##:###" matInput name="fromTime" formControlName="fromDate">
-</mat-form-field>
+
+<mat-card class="formCard">
+    
+    <form class="example-form">
+        <mat-form-field floatLabel="auto">
+            <mat-label>Name</mat-label>
+            <input matInput name="name" formControlName="fromDate">
+        </mat-form-field>
+        <mat-form-field floatLabel="auto">
+            <mat-label>Email</mat-label>
+            <input matInput name="email" formControlName="fromDate">
+        </mat-form-field>
+        <mat-form-field floatLabel="auto">
+            <mat-label>Time Trial</mat-label>
+            <input matInput name="time" formControlName="fromDate">
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" type="submit" class="submitButton"> Submit Run</button>
+    </form>
+</mat-card>
+
+
+
 <app-leaderboard></app-leaderboard>
+

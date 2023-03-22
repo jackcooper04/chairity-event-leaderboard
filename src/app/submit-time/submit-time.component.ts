@@ -12,11 +12,11 @@ export class SubmitTimeComponent {
   openScanner() {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
-    dialogConfig.disableClose = true
+    dialogConfig.disableClose = false;
     dialogConfig.id = "scanner-component";
     dialogConfig.height = "350px";
     dialogConfig.width = "600px";
     // https://material.angular.io/components/dialog/overview
-    const modalDialog = this.matDialog.open(ScannerComponent, dialogConfig);
+    let modalDialog = this.matDialog.open(ScannerComponent, {width:"600px", height:"350px"});
   }
 }

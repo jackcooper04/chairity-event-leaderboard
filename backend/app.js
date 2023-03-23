@@ -91,11 +91,7 @@ app.post("/update", (req, res, next) => {
     if (parsedPayload.hook.events) {
       if (parsedPayload.hook.events.includes('push')) {
         console.log('VALID')
-        exec(`cd /home/ubuntu/chairity-event-leaderboard &&
-  git reset --hard &&
-  git pull &&
-  sudo pm2 restart server
-  `, (error, stdout, stderr) => {
+        exec(`cd /home/ubuntu/chairity-event-leaderboard && git reset --hard && git pull && sudo pm2 restart server`, (error, stdout, stderr) => {
 
           console.log(`stdout: ${stdout}`);
         })

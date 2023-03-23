@@ -83,17 +83,17 @@ app.get("/ping",(req,res,next)=>{
 app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
 app.use("/api/track",trackRoute)
 
-app.post("/update,(req,res,next) => {
+app.post("/update",(req,res,next) => {
   console.log(req.body)
   res.send('OK')
 //  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
-  //git reset --hard &&
- // git pull &&
- // sudo pm2 restart server
- // `, (error, stdout, stderr) => {
+//   git reset --hard &&
+//   git pull &&
+//   sudo pm2 restart server
+//   `, (error, stdout, stderr) => {
 
-   // console.log(`stdout: ${stdout}`);
-//});
+//    console.log(`stdout: ${stdout}`);
+// })
 
 })
 

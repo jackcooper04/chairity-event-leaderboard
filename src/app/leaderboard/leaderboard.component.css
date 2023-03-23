@@ -1,0 +1,29 @@
+mat-tab-group{
+    width: 85vw;
+    margin: auto;
+    border-radius:10px;
+    box-shadow: 2px 2px 5px;
+}
+
+.firstplace{
+    background-color: rgb(255, 196, 0);
+}
+.personal{
+    background-color: rgba(104, 53, 247, 0.712);
+    
+}
+
+mat-list-item{
+    border-bottom: 1px solid black;
+    font: 3rem !important;
+}
+.position{
+    
+    font-style: italic !important;
+}
+.name{
+    margin-left: 3vw ;
+}
+.time{
+    float: right;
+}

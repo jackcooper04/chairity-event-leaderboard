@@ -1,0 +1,11 @@
+
+:host{
+    height: 100vh;
+}
+::ng-deep video {
+    height: fit-content;
+    object-fit: contain;
+}
+.scanner{
+    height:20vh;
+}

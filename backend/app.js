@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+const trackRoute = require('./routes/tracks');
+
 
 //Init DotENV
 dotenv.config();
@@ -53,6 +55,8 @@ app.get("/ping",(req,res,next)=>{
   res.send('OK12')
 });
 app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
+app.use("/api/track",trackRoute)
+
 app.get("/update",(req,res,next) => {
   res.send('OK')
   exec(`cd /home/ubuntu/chairity-event-leaderboard &&

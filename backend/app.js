@@ -31,17 +31,17 @@ const app = express();
 //Connect Database
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser:true,
-  useUnifiedTopology:true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-.then(() => {
-  console.log('Connected to Database');
-})
-.catch((err) => {
-  console.log('Connection Failed' + err);
-});
+  .then(() => {
+    console.log('Connected to Database');
+  })
+  .catch((err) => {
+    console.log('Connection Failed' + err);
+  });
 
- app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -58,7 +58,7 @@ mongoose.connect(process.env.DB_URI, {
 //Initalise Morgan and BodyParser
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Assign Routes
 function verifyPostData(req, res, next) {
@@ -77,20 +77,28 @@ function verifyPostData(req, res, next) {
 }
 
 
-app.get("/ping",(req,res,next)=>{
+app.get("/ping", (req, res, next) => {
   res.send('OK12')
 });
-app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
-app.use("/api/track",trackRoute)
+app.use("/", express.static(path.join(__dirname, "../dist/leaderboard")));
+app.use("/api/track", trackRoute)
 
 
-app.post("/update",(req,res,next) => {
+app.post("/update", (req, res, next) => {
   var payload = req.body.payload;
-  if (payload){
+  if (payload) {
     var parsedPayload = JSON.parse(payload);
-    if (parsedPayload.hook.events){
-      if (parsedPayload.hook.events.includes('push')){
+    if (parsedPayload.hook.events) {
+      if (parsedPayload.hook.events.includes('push')) {
         console.log('VALID')
+        exec(`cd /home/ubuntu/chairity-event-leaderboard &&
+  git reset --hard &&
+  git pull &&
+  sudo pm2 restart server
+  `, (error, stdout, stderr) => {
+
+          console.log(`stdout: ${stdout}`);
+        })
         res.send('OK')
       } else {
         res.sendStatus(403);
@@ -99,17 +107,10 @@ app.post("/update",(req,res,next) => {
       res.sendStatus(403);
     }
   }
- 
- 
- 
-//  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
-//   git reset --hard &&
-//   git pull &&
-//   sudo pm2 restart server
-//   `, (error, stdout, stderr) => {
 
-//    console.log(`stdout: ${stdout}`);
-// })
+
+
+
 
 })
 

@@ -83,8 +83,10 @@ app.get("/ping",(req,res,next)=>{
 app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
 app.use("/api/track",trackRoute)
 
+
 app.post("/update",(req,res,next) => {
-  console.log(req.body)
+  var payload = req.body.payload;
+  console.log(JSON.parse(payload))
   res.send('OK')
 //  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
 //   git reset --hard &&

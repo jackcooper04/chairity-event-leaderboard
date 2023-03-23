@@ -87,12 +87,17 @@ app.use("/api/track",trackRoute)
 app.post("/update",(req,res,next) => {
   var payload = req.body.payload;
   var parsedPayload = JSON.parse(payload);
-  if (parsedPayload.hook.events.includes('push')){
-    console.log('VALID')
-    res.send('OK')
+  if (parsedPayload.hook.events){
+    if (parsedPayload.hook.events.includes('push')){
+      console.log('VALID')
+      res.send('OK')
+    } else {
+      res.sendStatus(403);
+    }
   } else {
     res.sendStatus(403);
   }
+ 
  
 //  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
 //   git reset --hard &&

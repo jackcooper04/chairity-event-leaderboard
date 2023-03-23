@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const authSchema = mongoose.Schema({
-    studentName:{type:String,required:true},
-    studentID:{type:Number,required:true}
+    name:{type:String,required:true},
+    id:{type:String,required:false},
+    email:{type:String,required:false}
 });
 
 

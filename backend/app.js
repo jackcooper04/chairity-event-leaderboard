@@ -52,7 +52,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.get("/ping",(req,res,next)=>{
   res.send('OK12')
 });
-
+app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
 app.get("/update",(req,res,next) => {
   res.send('OK')
   exec(`cd /home/ubuntu/chairity-event-leaderboard &&

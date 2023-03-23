@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ScannerComponent } from './scanner/scanner.component';
+import { Component, ContentChild } from '@angular/core';
+import { StudentComponent } from './student/student.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
@@ -9,14 +9,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class SubmitTimeComponent {
   constructor(public matDialog: MatDialog){}
-  openScanner() {
+  openStudent() {
     const dialogConfig = new MatDialogConfig();
     // The user can't close the dialog by clicking outside its body
     dialogConfig.disableClose = false;
-    dialogConfig.id = "scanner-component";
-    dialogConfig.height = "350px";
-    dialogConfig.width = "600px";
+    dialogConfig.id = "student-component";
+    dialogConfig.width = "30vw";
+    
     // https://material.angular.io/components/dialog/overview
-    let modalDialog = this.matDialog.open(ScannerComponent, {width:"600px", height:"350px"});
+    let modalDialog = this.matDialog.open(StudentComponent, dialogConfig);
   }
 }

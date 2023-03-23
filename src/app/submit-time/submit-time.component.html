@@ -8,14 +8,15 @@
         </mat-form-field>
         <mat-form-field floatLabel="auto">
             <mat-label>Time Trial</mat-label>
-            <input matInput name="time" formControlName="fromT">
+            <input matInput name="time" formControlName="fromTime">
         </mat-form-field>
         <div>
             <mat-form-field floatLabel="auto">
                 <mat-label>Email</mat-label>
-                <input matInput name="email" formControlName="fromDate">
+                <input matInput name="email" formControlName="fromEmail">
             </mat-form-field>
-            <button mat-raised-button color="accent" (click)="openScanner()"> Scan</button>
+            <button mat-raised-button color="accent" (click)="$event.preventDefault(); openStudent()"> Scan</button>
+
         </div>
         
         

@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 //Assign Routes
 function verifyPostData(req, res, next) {
-  if (!req.rawBody) {
+  if (!req.body) {
     return next('Request body empty')
   }
 
@@ -83,17 +83,17 @@ app.get("/ping",(req,res,next)=>{
 app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
 app.use("/api/track",trackRoute)
 
-app.post("/update",verifyPostData,(req,res,next) => {
+app.post("/update,(req,res,next) => {
   console.log(req.body)
   res.send('OK')
-  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
-  git reset --hard &&
-  git pull &&
-  sudo pm2 restart server
-  `, (error, stdout, stderr) => {
+//  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
+  //git reset --hard &&
+ // git pull &&
+ // sudo pm2 restart server
+ // `, (error, stdout, stderr) => {
 
-    console.log(`stdout: ${stdout}`);
-});
+   // console.log(`stdout: ${stdout}`);
+//});
 
 })
 

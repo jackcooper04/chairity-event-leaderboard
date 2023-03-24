@@ -3,5 +3,5 @@ main{
 }
 .toolbarTitle{
     margin: auto;
-    
+    z-index: 99;
 }

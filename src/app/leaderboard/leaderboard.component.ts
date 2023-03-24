@@ -23,6 +23,7 @@ export class LeaderboardComponent implements OnInit{
     this.leaderboardService.getTracks()
     this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((tracks: any)=>{
         this.tracks = tracks
+        console.log(this.tracks)
     });
 
   } 

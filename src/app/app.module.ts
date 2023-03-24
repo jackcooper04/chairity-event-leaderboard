@@ -15,9 +15,11 @@ import { timeConvertPipe } from './pipes/limit-to.pipe';
 import { PaymentFormComponent } from './submit-time/payment-form/payment-form.component';
 import { SessionFormComponent } from './submit-time/session-form/session-form.component';
 
-import { TextMaskModule } from 'angular2-text-mask';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InputMaskModule } from 'ngx-input-mask';
+import { LapToMilliPipe } from './pipes/lap-to-milli.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,17 +28,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     timeConvertPipe,
     PaymentFormComponent,
     SessionFormComponent,
+    LapToMilliPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    TextMaskModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputMaskModule
   ],
-  providers: [LeaderboardService, DatePipe],
+  providers: [LeaderboardService, DatePipe, LapToMilliPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

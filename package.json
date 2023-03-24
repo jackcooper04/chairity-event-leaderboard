@@ -94,6 +94,9 @@
     "morgan": "^1.10.0",
 
 
+    "ngx-input-mask": "^2.0.4",
+
+
     "ngx-order-pipe": "^2.2.0",
 
 

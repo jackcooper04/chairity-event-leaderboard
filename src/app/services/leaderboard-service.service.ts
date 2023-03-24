@@ -9,8 +9,19 @@ import { Record } from '../models/record.modal';
 
 export class LeaderboardService {
   private tracks: BehaviorSubject<Record[]> = new BehaviorSubject<Record[]>([]);
-  trackOne: Record[] = [{id:"12321313",name: "dude1", time:4528030, email: "tada", personal: false},{id:"12321313", name: "dude1", time:92803, email: "tada", personal: false}, {id:"12321313", name: "dude1", time:92706, email: "tada", personal: true}, {id:"12321313", name: "dude1", time:92703, email: "tada", personal: false} ];
-  trackTwo: any[] = [{name: "dude1", time:1679065003698, email: "tada"}, {name: "dude2", time:1679065003697, email: "tada"}];
+  tracksStored = [
+    [
+    {id:"12321313",name: "dude1", time:110555, email: "tada", personal: false},
+    {id:"12321313", name: "dude1", time:92803, email: "tada", personal: false},
+    {id:"12321313", name: "dude1", time:92706, email: "tada", personal: true},
+    {id:"12321313", name: "dude1", time:92703, email: "tada", personal: false}
+    ],
+    [
+      {name: "dude1", time:1679065003698, email: "tada"}, {name: "dude2", time:1679065003697, email: "tada"}
+    ],[]]
+    
+
+  trackTwo: any[] = [];
   trackThree: any[] = [];
   
   constructor() { }
@@ -20,12 +31,22 @@ export class LeaderboardService {
   }
 
   getTracks(){
-    this.trackOne = this.trackOne.sort((a,b)=> a.time - b.time)
-    let tracksTemp: any = [this.trackOne, this.trackTwo, this.trackThree]
-    this.tracks.next([...tracksTemp])
+    this.tracksStored.forEach((track, index)=>{
+      this.tracksStored[index] = track.sort((a,b)=> a.time - b.time)
+    })
+    let tempTracks = this.tracksStored
+    this.tracks.next([...tempTracks])
   }
-  addSession(session: any){
-    console.log(session)
+  addSession(session: any, track: any){
+    if(track == 1){
+      this.trackOne.push(session)
+    }else if(track == 2){
+      this.trackTwo.push(session)
+    }else if(track == 3){
+      this.trackThree.push(session)
+    }
+    
+    this.getTracks()
   }
 
 }

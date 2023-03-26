@@ -3,9 +3,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-submit-time',
-  templateUrl: './submit-time.component.html',
-  styleUrls: ['./submit-time.component.css']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class SubmitTimeComponent {
+export class dashboardComponent {
   constructor(public matDialog: MatDialog){}
 }

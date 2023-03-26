@@ -13,7 +13,7 @@ import { Record } from '../models/record.modal';
 
 export class LeaderboardComponent implements OnInit{
   
-  tracks : [Record[]] = [[]];
+  tracks: [Record[], Record[], Record[]]= [[], [], []];
   public tracksSub : Subscription;
 
   
@@ -23,7 +23,7 @@ export class LeaderboardComponent implements OnInit{
     this.leaderboardService.getTracks()
     this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((tracks: any)=>{
         this.tracks = tracks
-        console.log(this.tracks)
+        console.log(this.tracks[0])
     });
 
   } 

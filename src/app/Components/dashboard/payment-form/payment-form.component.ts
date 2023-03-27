@@ -20,7 +20,7 @@ export class PaymentFormComponent {
 
     // Set type based on User choice, if other, get type from input
     let type = "null"
-    if (form.value.typeSelect == "other"){
+    if (form.value.typeSelect == "paid"){
       type = form.value.typeOther
     }else{
       type = form.value.typeSelect
@@ -35,7 +35,8 @@ export class PaymentFormComponent {
       created: new Date().getTime()
 
     }
-    console.log(payment)
     this.lbService.addPayment(payment)
+    form.reset()
+    return
   }
 }

@@ -23,7 +23,7 @@ export class LeaderboardService {
       {id:"12321313",name: "dude3", time:110555, email: "tada", personal: false},
     ]
   ]
-  paymentsStored: any[] = []
+  paymentsStored: Payment[] = [{id:"null", payee:'Yuki', amount:9.02, type:"monzo", created: new Date().valueOf()}]
   
   constructor() { }
   //Track Data Control
@@ -53,7 +53,7 @@ export class LeaderboardService {
   }
   // gets the Payment List, and pushes it to the listen Object
   getPayments(){
-    this.paymentsStored = this.paymentsStored.sort((a:Payment,b:Payment)=> a.created - b.created )
+    this.paymentsStored = this.paymentsStored.sort((a:Payment,b:Payment)=> b.created - a.created )
     this.payments.next([...this.paymentsStored])
   }
   // Adds payment to local list, then runs getsPayments

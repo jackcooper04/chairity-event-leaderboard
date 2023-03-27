@@ -1,7 +1,8 @@
 export interface Payment{
-    id: any;
-    payee: '',
+    id: any,
+    payee: string,
     amount: number,
     type: string,
-    created: number
+    created: number,
+    icon?: string,
 }

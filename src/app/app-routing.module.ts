@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component'
-import { dashboardComponent } from './dashboard/dashboard.component';
+import { LeaderboardComponent } from './Components/leaderboard/leaderboard.component'
+import { dashboardComponent } from './Components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: LeaderboardComponent},

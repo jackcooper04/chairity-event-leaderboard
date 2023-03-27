@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { formatCurrency } from '@angular/common';
+import { Component, Inject,
+  LOCALE_ID } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Payment } from 'src/app/models/payment.modal';
 import { LeaderboardService } from 'src/app/services/leaderboard-service.service';
@@ -10,15 +12,20 @@ import { LeaderboardService } from 'src/app/services/leaderboard-service.service
 })
 export class PaymentListComponent {
   public paymentsSub : Subscription;
-  payments: Payment[]
+  payments: any[]
 
   
-  constructor(private leaderboardService: LeaderboardService){}
+  constructor(private leaderboardService: LeaderboardService,
+    @Inject(LOCALE_ID) public locale: string,){}
   ngOnInit(): void{
     console.log("running on Init")
     this.leaderboardService.getPayments()
-    this.paymentsSub = this.leaderboardService.getPaymentsUpdateListener().subscribe((payents: any)=>{
+    this.paymentsSub = this.leaderboardService.getPaymentsUpdateListener().subscribe((payents: Payment[])=>{
         this.payments = payents
     });
+  }
+  formatAmount(amount: number):string{
+    let newValue = formatCurrency(amount,this.locale, '£')
+    return newValue
   }
 }

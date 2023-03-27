@@ -15,9 +15,7 @@ import { LeaderboardService } from 'src/app/services/leaderboard-service.service
 export class SessionFormComponent {
   trackOptions = [{name:"rainbow Road", value: 0},{name:"DudeRace", value: 1},{name:"Bobbet", value: 2}]
 
-  timeInputMask = createMask('9?9:99:999');
-
-  isManual = false;
+  isManual = false; //is Email entered manually
   isMarker = false;
 
   laptoMilli = new LapToMilliPipe();
@@ -30,11 +28,13 @@ export class SessionFormComponent {
     this.isManual = event.checked;
   }
   sessionFormSubmit(form: NgForm){
-      let times = [form.value.time, form.value.lapTest1, form.value.lapTest2]
+      let times = [{value: form.value.time, name: "time"}, {value: form.value.lapTest1, name: "lapTest1"}, {value: form.value.lapTest2, name: "lapTest2"}]
       for (let time of times){
-        if(this.validateTime(time) == false){
-          console.log(time)
-          form.controls['time'].setErrors({'incorrect': true});
+        if(this.validateTime(time.value) == false){ //if the seconds are greater than 59 then return error on input
+          console.log(time.name)
+          form.controls[time.name].setErrors({'incorrect': true});
+        }else if(this.validateTime(time.value) == true){
+          form.controls[time.name].setErrors(null)
         }
       }
     
@@ -55,10 +55,10 @@ export class SessionFormComponent {
       // form.resetForm()
 
   }
-
+  // Checks that the seconds are less that 60, as otherwise the time would be invalid
   validateTime(time: string):boolean{
-    let min = Number(time.split(':')[1])
-    if (min < 60){
+    let sec = Number(time.split(':')[1]) //split the time string on the ':', then grabs the second item and converts it to number
+    if (sec < 60){
       return true
     }else{
       return false

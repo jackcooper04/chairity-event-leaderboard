@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription } from 'rxjs';
-import { LeaderboardService } from '../services/leaderboard-service.service';
-import { Record } from '../models/record.modal';
+import { LeaderboardService } from '../../services/leaderboard-service.service';
+import { Record } from '../../models/record.modal';
 
 @Component({
   selector: 'app-leaderboard',

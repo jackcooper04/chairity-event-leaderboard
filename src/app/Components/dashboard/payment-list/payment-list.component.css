@@ -12,6 +12,7 @@ mat-list-item{
 }
 .name{
     margin-left: 3vw ;
+    font-weight: bold;
 }
 .amount{
     float: right;

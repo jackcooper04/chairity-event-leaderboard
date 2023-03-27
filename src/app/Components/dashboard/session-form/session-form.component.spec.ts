@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeaderboardComponent } from './leaderboard.component';
+import { SessionFormComponent } from './session-form.component';
 
-describe('LeaderboardComponent', () => {
-  let component: LeaderboardComponent;
-  let fixture: ComponentFixture<LeaderboardComponent>;
+describe('SessionFormComponent', () => {
+  let component: SessionFormComponent;
+  let fixture: ComponentFixture<SessionFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LeaderboardComponent ]
+      declarations: [ SessionFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LeaderboardComponent);
+    fixture = TestBed.createComponent(SessionFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

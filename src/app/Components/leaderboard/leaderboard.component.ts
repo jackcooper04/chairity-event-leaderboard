@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription } from 'rxjs';
-import { LeaderboardService } from '../leaderboard-service.service';
-import { Record } from '../record.modal';
+import { LeaderboardService } from '../../services/leaderboard-service.service';
+import { Record } from '../../models/record.modal';
 
 @Component({
   selector: 'app-leaderboard',
@@ -13,7 +13,7 @@ import { Record } from '../record.modal';
 
 export class LeaderboardComponent implements OnInit{
   
-  tracks : [Record[]] = [[]];
+  tracks: [Record[], Record[], Record[]]= [[], [], []];
   public tracksSub : Subscription;
 
   
@@ -23,6 +23,7 @@ export class LeaderboardComponent implements OnInit{
     this.leaderboardService.getTracks()
     this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((tracks: any)=>{
         this.tracks = tracks
+        console.log(this.tracks[0])
     });
 
   } 

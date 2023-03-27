@@ -1,0 +1,22 @@
+
+<mat-card>
+    <mat-list role="list">
+        <mat-list-item role="listitem">
+            <span class="name"></span> 
+            <span class="name"> Payee</span> 
+            <span class="amount">Amount</span>
+        </mat-list-item>
+        <mat-list-item  role="listitem" *ngFor="let payment of payments; let i = index" [attr.data-index]="i">
+                <g [ngSwitch]="payment.type">
+                    <mat-icon *ngSwitchCase="'monzo'">qr_code</mat-icon>
+                    <mat-icon *ngSwitchCase="'cash'">payments</mat-icon>
+                    <mat-icon *ngSwitchDefault>monetization_on</mat-icon>
+                    
+                </g>
+                
+                <span class="name"> {{payment.payee}}</span> 
+                <span class="amount">{{formatAmount( payment.amount)}}</span>
+                <span></span>
+        </mat-list-item>
+    </mat-list>
+</mat-card>

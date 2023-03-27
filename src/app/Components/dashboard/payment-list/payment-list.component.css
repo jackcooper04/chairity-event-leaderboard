@@ -1,0 +1,20 @@
+mat-card{
+    width: 85vw;
+    margin: auto;
+    border-radius:10px;
+    box-shadow: 2px 2px 5px;
+    margin-top: 2vh;
+}
+
+
+mat-list-item{
+    border-bottom: 1px solid black;
+    font: 3rem !important;
+}
+.name{
+    margin-left: 3vw ;
+    font-weight: bold;
+}
+.amount{
+    float: right;
+}

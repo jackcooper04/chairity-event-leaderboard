@@ -20,8 +20,9 @@ const sigHashAlg = 'sha256'
 
 
 const trackRoute = require('./routes/tracks');
-
-
+const timeRoute = require('./routes/timing');
+const userRoute = require('./routes/users');
+const paymentRoute = require('./routes/payments');
 //Init DotENV
 dotenv.config();
 
@@ -77,35 +78,30 @@ function verifyPostData(req, res, next) {
 }
 
 
-app.get("/ping", (req, res, next) => {
+
+app.post("/ping",(req,res,next)=>{
+  console.log(req.body)
   res.send('OK12')
 });
-app.use("/", express.static(path.join(__dirname, "../dist/leaderboard")));
-app.use("/api/track", trackRoute)
+app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
 
 
-app.post("/update", (req, res, next) => {
-  var payload = req.body.payload;
-  if (payload) {
-    var parsedPayload = JSON.parse(payload);
-    if (parsedPayload.hook.events) {
-      if (parsedPayload.hook.events.includes('push')) {
-        console.log('VALID')
-        exec(`cd /home/ubuntu/chairity-event-leaderboard && git reset --hard && git pull && sudo pm2 restart server`, (error, stdout, stderr) => {
+app.use("/api/track",trackRoute);
+app.use("/api/user",userRoute);
+app.use("/api/time",timeRoute);
+app.use("/api/pay",paymentRoute);
 
-          console.log(`stdout: ${stdout}`);
-        })
-        res.send('OK')
-      } else {
-        res.sendStatus(403);
-      }
-    } else {
-      res.sendStatus(403);
-    }
-  }
+app.post("/update",verifyPostData,(req,res,next) => {
+  console.log(req.body)
+  res.send('OK')
+  exec(`cd /home/ubuntu/chairity-event-leaderboard &&
+  git reset --hard &&
+  git pull &&
+  sudo pm2 restart server
+  `, (error, stdout, stderr) => {
 
-
-
+    console.log(`stdout: ${stdout}`);
+});
 
 
 })

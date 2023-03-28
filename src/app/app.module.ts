@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,8 +12,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { LeaderboardService} from './services/leaderboard-service.service';
 import { timeConvertPipe } from './pipes/limit-to.pipe';
+
 import { PaymentFormComponent } from './Components/dashboard/payment-form/payment-form.component';
 import { SessionFormComponent } from './Components/dashboard/session-form/session-form.component';
+
 
 import { FormsModule } from '@angular/forms';
 // import { ReactiveFormsModule } from '@angular/forms';
@@ -29,17 +31,21 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     AppComponent,
     LeaderboardComponent,
+
     dashboardComponent,
     timeConvertPipe,
     PaymentFormComponent,
     SessionFormComponent,
     LapToMilliPipe,
     PaymentListComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    ZXingScannerModule,
     MaterialModule,
     FormsModule,
     NgxMaskModule.forRoot(maskConfig),

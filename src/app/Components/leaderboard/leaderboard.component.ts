@@ -12,19 +12,27 @@ import { Record } from '../../models/record.modal';
 
 
 export class LeaderboardComponent implements OnInit{
-  
-  tracks: [Record[], Record[], Record[]]= [[], [], []];
+  trackInfo : any[] = []
+  sessions: Record[]= [];
   public tracksSub : Subscription;
+  public sessionSub: Subscription;
 
   
   constructor(private leaderboardService: LeaderboardService){}
   ngOnInit(): void{
     console.log("running on Init")
     this.leaderboardService.getTracks()
-    this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((tracks: any)=>{
-        this.tracks = tracks
-        console.log(this.tracks[0])
+    
+    this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((data: any)=>{
+        this.trackInfo = data
+    });
+    this.leaderboardService.getSessions(this.trackInfo[0].id)
+    this.tracksSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any)=>{
+        this.sessions = data
     });
 
   } 
+  onTabChanged(value: any){
+    this.leaderboardService.getSessions(this.trackInfo[value.index].id)
+  }
 }

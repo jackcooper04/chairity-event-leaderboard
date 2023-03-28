@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { createMask } from '@ngneat/input-mask';
 import { LapToMilliPipe } from 'src/app/pipes/lap-to-milli.pipe';
 import { timeConvertPipe } from 'src/app/pipes/limit-to.pipe';
 import { LeaderboardService } from 'src/app/services/leaderboard-service.service';
+import {Subscription } from 'rxjs';
+import { Track } from 'src/app/models/track.modal';
 
 @Component({
   selector: 'app-session-form',
@@ -13,7 +14,8 @@ import { LeaderboardService } from 'src/app/services/leaderboard-service.service
 })
 
 export class SessionFormComponent {
-  trackOptions = [{name:"rainbow Road", value: 0},{name:"DudeRace", value: 1},{name:"Bobbet", value: 2}]
+  public tracksSub : Subscription;
+  trackOptions: Track[] = []
 
   isManual = false; //is Email entered manually
   isMarker = false;
@@ -22,32 +24,54 @@ export class SessionFormComponent {
   milliToLap = new timeConvertPipe();
 
   constructor(private lbService: LeaderboardService){}
+
+  ngOnInit() :void{
+    this.lbService.getTracks()
+    this.tracksSub = this.lbService.getTrackUpdateListener().subscribe((data: any)=>{
+        this.trackOptions = data
+    });
+
+  }
+
   
 
   public toggle(event: MatSlideToggleChange) {
     this.isManual = event.checked;
   }
   sessionFormSubmit(form: NgForm){
-      let times = [{value: form.value.time, name: "time"}, {value: form.value.lapTest1, name: "lapTest1"}, {value: form.value.lapTest2, name: "lapTest2"}]
+      let times = [{value: form.value.time, name: "time"}, {value: form.value.lapTest1, name: "lapTest1"}, {value: form.value.lapTest2, name: "lapTest2"} ,{value: form.value.lapTest3, name: "lapTest3"}]
+      
       for (let time of times){
         if(this.validateTime(time.value) == false){ //if the seconds are greater than 59 then return error on input
-          console.log(time.name)
-          form.controls[time.name].setErrors({'incorrect': true});
+
+          form.controls[time.name].setErrors({'incorrect': true}); //if incorrect match, incorrect is ture
+
         }else if(this.validateTime(time.value) == true){
-          form.controls[time.name].setErrors(null)
+
+          form.controls[time.name].setErrors(null) //if correct match, no errors found in form
         }
       }
-    
+
+      let fastestLap = Math.min(...times.map(item => this.laptoMilli.transform(item.value))); //grabs fastest time from all laps
+
+      // Checks if student ID was used and formats to email , otherwise passes email
+      let finalEmail = ""
+      if(this.isManual==false){
+        finalEmail = form.value.studentId.toString() + "@student.chelmsford.ac.uk"
+      }else{
+        finalEmail = form.value.email
+      }
       if(form.invalid){
         return
       }
+
+
       const session= {
           id: "null",
           name: form.value.name,
-          email: form.value.email,
-          studentID: Number(form.value.studentID),
-          time: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
-          testLaps: [this.laptoMilli.transform(form.value.lapTest1), this.laptoMilli.transform(form.value.lapTest2)],
+          email: finalEmail,
+          finalTime: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
+          fastestLap: fastestLap,
           personal: form.value.personal
       }
       

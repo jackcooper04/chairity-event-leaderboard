@@ -25,6 +25,10 @@ mat-list-item{
 .name{
     margin-left: 3vw ;
 }
-.time{
+.finalTime{
     float: right;
+}
+.fastestLap{
+    float: right;
+    margin-right: 5vh;
 }

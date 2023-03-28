@@ -1,7 +1,9 @@
 <mat-tab-group 
     mat-stretch-tabs="true" 
-    mat-align-tabs="start">
-    <mat-tab *ngFor="let track of tracks ; let i = index" [attr.data-index]="i" label="Track {{i+1}}">
+    mat-align-tabs="start"
+    (selectedTabChange)="onTabChanged($event)"
+    >
+    <mat-tab *ngFor="let track of trackInfo ; let i = index" [attr.data-index]="i" [label]="track.name">
         <mat-list role="list">
             <mat-list-item  role="listitem">
                     
@@ -11,7 +13,7 @@
                 <span class="fastestLap">Fastest Lap</span>
 
             </mat-list-item>
-            <mat-list-item  role="listitem" *ngFor="let record of track; let i = index" [attr.data-index]="i"  [ngClass]="{'firstplace': i == 0 , 'personal': record.personal == true}">
+            <mat-list-item  role="listitem" *ngFor="let record of sessions; let i = index" [attr.data-index]="i"  [ngClass]="{'firstplace': i == 0 , 'personal': record.personal == true}">
                     
                     <span class="postion" *ngIf="record.personal !== true">{{i+1}}</span>  
                     <span *ngIf="record.personal == true">Marker</span>

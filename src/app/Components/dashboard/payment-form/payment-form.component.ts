@@ -37,6 +37,5 @@ export class PaymentFormComponent {
     }
     this.lbService.addPayment(payment)
     form.reset()
-    return
   }
 }

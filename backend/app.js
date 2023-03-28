@@ -77,7 +77,8 @@ function verifyPostData(req, res, next) {
 }
 
 
-app.get("/ping",(req,res,next)=>{
+app.post("/ping",(req,res,next)=>{
+  console.log(req.body)
   res.send('OK12')
 });
 app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));

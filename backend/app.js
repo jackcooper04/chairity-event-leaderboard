@@ -20,7 +20,8 @@ const sigHashAlg = 'sha256'
 
 
 const trackRoute = require('./routes/tracks');
-
+const timeRoute = require('./routes/timing');
+const userRoute = require('./routes/users');
 
 //Init DotENV
 dotenv.config();
@@ -82,7 +83,11 @@ app.post("/ping",(req,res,next)=>{
   res.send('OK12')
 });
 app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
-app.use("/api/track",trackRoute)
+
+
+app.use("/api/track",trackRoute);
+app.use("/api/user",userRoute);
+app.use("/api/time",timeRoute);
 
 app.post("/update",verifyPostData,(req,res,next) => {
   console.log(req.body)

@@ -1,6 +1,4 @@
 {
-
-
   "name": "chairity-event-leaderboard",
 
 
@@ -11,6 +9,7 @@
 
 
     "ng": "ng",
+
 
 
     "start": "ng serve",
@@ -66,6 +65,7 @@
 
     "@angular/router": "^15.2.0",
 
+    "@ngneat/input-mask": "^6.1.0",
 
     "@zxing/browser": "^0.1.1",
 
@@ -94,6 +94,16 @@
     "morgan": "^1.10.0",
 
 
+
+    "angular-ui-mask": "^1.8.7",
+    "angular2-text-mask": "^9.0.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.1",
+    "morgan": "^1.10.0",
+    "ngx-mask": "^14.2.4",
+
     "ngx-order-pipe": "^2.2.0",
 
 
@@ -106,8 +116,12 @@
     "tslib": "^2.3.0",
 
 
+
     "zone.js": "~0.12.0"
 
+
+
+    "zone.js": "~0.12.0"
 
   },
 
@@ -123,6 +137,10 @@
 
     "@angular/compiler-cli": "^15.2.0",
 
+
+
+
+    "@types/inputmask": "5.0.0",
 
     "@types/jasmine": "~4.3.0",
 
@@ -148,7 +166,9 @@
     "typescript": "~4.9.4"
 
 
+
   }
+
 
 
 }

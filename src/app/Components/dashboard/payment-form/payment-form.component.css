@@ -1,0 +1,48 @@
+mat-card-header{
+    padding: 2vh;
+    border-bottom:1px solid black ;
+    margin-bottom: 30px;
+}
+.formCard{
+    width: 85vw;
+    margin:auto;
+    margin-bottom: 2vh;
+    padding: 1vh;
+    border-radius:10px;
+    box-shadow: 2px 2px 5px;
+}
+
+mat-form-field{
+    width: 30vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    
+}
+.submitButton{
+    width: 100%;
+}
+
+.idButton{
+    height:fill ;
+}
+
+.markerToggle{
+    transform: scale(1.3);
+    float: right;
+    margin: 2vh;
+    margin-right: 10vw;
+}
+.manualToggle{
+    transform: scale(1.3);
+    margin: 2vh;
+    
+    margin-left: 11vw;
+}
+
+
+@media only screen and (max-width: 700px) {
+    mat-form-field {
+        margin-left: 5vw;
+        width:70vw;
+    }
+}

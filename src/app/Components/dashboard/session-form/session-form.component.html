@@ -1,0 +1,88 @@
+<mat-card class="formCard">
+  <mat-card-header>
+    <mat-card-title>Submit Session</mat-card-title>
+  </mat-card-header>
+    
+    <form class="example-form" (submit)="sessionFormSubmit(sessionForm)" #sessionForm="ngForm">
+
+      <!-- ENTER NAME -->
+        <mat-form-field floatLabel="auto">
+            <mat-label>Name</mat-label>
+            <input matInput name="name" required  ngModel>
+        </mat-form-field>
+        <!-- Select Track -->
+        <mat-form-field appearance="fill">
+          <mat-label>Track</mat-label>
+          <mat-select name="track" [ngModel] required>
+            <mat-option *ngFor="let trackOption of trackOptions" [value]="trackOption.value" >
+              {{trackOption.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Select if user wants to enter student id or manual Email -->
+        <mat-slide-toggle [checked]="isManual" class="manualToggle" (change)="toggle($event)">Manual Email?</mat-slide-toggle> <br>
+
+        <!-- Email Input or Student ID Input -->
+        <mat-form-field *ngIf="isManual == true">
+            <mat-label>Email</mat-label>
+            <input matInput name="email"   ngModel>
+        </mat-form-field>
+        <mat-form-field *ngIf="isManual == false">
+            <mat-label>Student ID</mat-label>
+            <input matInput name="studentID" [showMaskTyped]="true" mask="00000000" ngModel>
+        </mat-form-field>
+        
+
+          <!-- Fastest Lap -->
+          <mat-form-field floatLabel="auto">
+
+            <mat-label>Fastest Lap</mat-label>
+            <input matInput
+            mask="90:90:990"
+            [dropSpecialCharacters]="false"
+            [showMaskTyped]="true"
+             name="time"
+             ngModel required>
+            <mat-error >Incorrect Format or Missing Date</mat-error>
+        </mat-form-field>
+
+        <!-- test laps -->
+        <mat-form-field floatLabel="auto">
+          <mat-label>test Lap 1</mat-label>
+          <input matInput 
+          mask="90:90:990"
+          [dropSpecialCharacters]="false"
+          [showMaskTyped]="true"
+           name="lapTest1"
+           ngModel>
+          <mat-error >Incorrect Format or Missing Date</mat-error>
+      </mat-form-field>
+      <mat-form-field floatLabel="auto">
+
+        <mat-label>test Lap 2</mat-label>
+        <input matInput
+          mask="90:90:990"
+          [dropSpecialCharacters]="false"
+          [showMaskTyped]="true"
+          name="lapTest2"
+          ngModel>
+        <mat-error >Incorrect Format or Missing Date</mat-error>
+    </mat-form-field>
+
+        <!-- Check if its a Marker -->
+          <mat-slide-toggle
+          name="personal"
+          class="example-margin"
+          color="primary"
+          [checked]="isMarker"
+          class="markerToggle"
+          ngModel >
+        Marker?
+        </mat-slide-toggle>
+
+
+        <button mat-raised-button color="primary" type="submit" class="submitButton"> Submit Run</button>
+    </form>
+    
+</mat-card>

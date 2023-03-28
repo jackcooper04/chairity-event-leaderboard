@@ -1,0 +1,36 @@
+<mat-card class="formCard">
+    <mat-card-header>
+      <mat-card-title>Submit Session</mat-card-title>
+    </mat-card-header>
+      
+      <form class="example-form" (submit)="paymentFormSubmit(paymentForm)" #paymentForm="ngForm">
+  
+        <!-- ENTER NAME -->
+          <mat-form-field floatLabel="auto">
+              <mat-label>Name</mat-label>
+              <input matInput name="payee" required  ngModel>
+          </mat-form-field>
+
+          <mat-form-field floatLabel="auto">
+            <mat-label>Amount</mat-label>
+            <input matInput name="amount" [dropSpecialCharacters]="['£']" mask="separator.2" prefix="£" required  ngModel>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Payment Option</mat-label>
+            <mat-select name="typeSelect" [ngModel] required>
+              <mat-option *ngFor="let paymentOption of paymentOptions" [value]="paymentOption.value" >
+                {{paymentOption.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field floatLabel="auto" *ngIf="paymentForm.value.typeSelect == 'other'">
+            <mat-label>Other Payment Method</mat-label>
+            <input matInput name="typeOther"  ngModel>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" class="submitButton"> add Payment</button>
+      </form>
+      
+  </mat-card>

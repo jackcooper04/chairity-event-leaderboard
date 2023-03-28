@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubmitTimeComponent } from './submit-time.component';
+import { PaymentListComponent } from './payment-list.component';
 
-describe('SubmitTimeComponent', () => {
-  let component: SubmitTimeComponent;
-  let fixture: ComponentFixture<SubmitTimeComponent>;
+describe('PaymentListComponent', () => {
+  let component: PaymentListComponent;
+  let fixture: ComponentFixture<PaymentListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubmitTimeComponent ]
+      declarations: [ PaymentListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SubmitTimeComponent);
+    fixture = TestBed.createComponent(PaymentListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

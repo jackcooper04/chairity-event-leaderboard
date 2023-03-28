@@ -2,6 +2,13 @@ main{
     margin-top: 2vh ;
 }
 .toolbarTitle{
-    margin: auto;
+    margin-bottom:auto ;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: 25vw;
     
+}
+.totalAmount{
+    z-index: 99;
+    width:15vw;
 }

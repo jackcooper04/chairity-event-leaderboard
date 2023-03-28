@@ -32,17 +32,17 @@ const app = express();
 //Connect Database
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser:true,
-  useUnifiedTopology:true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
-.then(() => {
-  console.log('Connected to Database');
-})
-.catch((err) => {
-  console.log('Connection Failed' + err);
-});
+  .then(() => {
+    console.log('Connected to Database');
+  })
+  .catch((err) => {
+    console.log('Connection Failed' + err);
+  });
 
- app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -59,11 +59,11 @@ mongoose.connect(process.env.DB_URI, {
 //Initalise Morgan and BodyParser
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Assign Routes
 function verifyPostData(req, res, next) {
-  if (!req.rawBody) {
+  if (!req.body) {
     return next('Request body empty')
   }
 
@@ -76,6 +76,7 @@ function verifyPostData(req, res, next) {
 
   return next()
 }
+
 
 
 app.post("/ping",(req,res,next)=>{
@@ -101,6 +102,7 @@ app.post("/update",verifyPostData,(req,res,next) => {
 
     console.log(`stdout: ${stdout}`);
 });
+
 
 })
 

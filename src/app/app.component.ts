@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { formatCurrency } from '@angular/common';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Payment } from './models/payment.modal';
 import { LeaderboardService } from './services/leaderboard-service.service';
@@ -13,7 +14,11 @@ export class AppComponent implements OnInit{
   payments : any[];
   paymentsTotal: number = 0;
 
-  constructor(private lbService: LeaderboardService){}
+  constructor(private lbService: LeaderboardService,
+    @Inject(LOCALE_ID) public locale: string,){}
+
+
+    
   ngOnInit(): void {
     this.lbService.getPayments()
     this.paymentsSub = this.lbService.getPaymentsUpdateListener()
@@ -24,6 +29,10 @@ export class AppComponent implements OnInit{
         this.paymentsTotal += payment.amount
       });
     })
+  }
+  formatAmount(amount: number):string{
+    let newValue = formatCurrency(amount,this.locale, '£')
+    return newValue
   }
 
 

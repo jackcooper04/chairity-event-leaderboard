@@ -12,7 +12,7 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary">
   <span class="toolbarTitle mat-headline-4">Drive 4 a Difference</span>
-  <button mat-raised-button class="totalAmount" >{{paymentsTotal}}</button>
+  <button mat-raised-button class="totalAmount" >{{formatAmount(paymentsTotal)}}</button>
 </mat-toolbar>
 <main class="routercontainer">
   <router-outlet></router-outlet>

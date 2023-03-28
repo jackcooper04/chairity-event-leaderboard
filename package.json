@@ -5,7 +5,6 @@
     "ng": "ng",
     "start": "ng serve --disable-host-check=true",
     "build": "ng build --configuration production",
-
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "setup": "npm i package.json && npm i @angular/cli -g"

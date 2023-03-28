@@ -14,13 +14,13 @@ export class LeaderboardService {
 
   tracksStored: any[] = [
     [
-    {id:"12321313",name: "dude1", time:110555, email: "tada", personal: false},
+    {id:"12321313",name: "dude1", finalTime:110555, fastestLap:110555, email: "tada", personal: false},
     ],
     [
-      {id:"12321313",name: "dude2", time:110555, email: "tada", personal: false},
+      {id:"12321313",name: "dude1", finalTime:110555, fastestLap:110555, email: "tada", personal: false},
     ],
     [
-      {id:"12321313",name: "dude3", time:110555, email: "tada", personal: false},
+      {id:"12321313",name: "dude1", finalTime:110555, fastestLap:110555, email: "tada", personal: false},
     ]
   ]
   paymentsStored: Payment[] = [{id:"null", payee:'Yuki', amount:9.02, type:"monzo", created: new Date().valueOf()}]
@@ -36,7 +36,7 @@ export class LeaderboardService {
   // For each track in "storedTracks", it will sort them, then pushes all to the listen object
   getTracks(){
     this.tracksStored.forEach((track, index)=>{
-      this.tracksStored[index] = track.sort((a:Record,b:Record)=> a.time - b.time)
+      this.tracksStored[index] = track.sort((a:Record,b:Record)=> a.finalTime - b.finalTime)
     })
     
     this.tracks.next([...this.tracksStored])

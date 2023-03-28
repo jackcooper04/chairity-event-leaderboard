@@ -28,26 +28,32 @@ export class SessionFormComponent {
     this.isManual = event.checked;
   }
   sessionFormSubmit(form: NgForm){
-      let times = [{value: form.value.time, name: "time"}, {value: form.value.lapTest1, name: "lapTest1"}, {value: form.value.lapTest2, name: "lapTest2"}]
+      let times = [{value: form.value.time, name: "time"}, {value: form.value.lapTest1, name: "lapTest1"}, {value: form.value.lapTest2, name: "lapTest2"} ,{value: form.value.lapTest3, name: "lapTest3"}]
+      
       for (let time of times){
         if(this.validateTime(time.value) == false){ //if the seconds are greater than 59 then return error on input
-          console.log(time.name)
-          form.controls[time.name].setErrors({'incorrect': true});
+
+          form.controls[time.name].setErrors({'incorrect': true}); //if incorrect match, incorrect is ture
+
         }else if(this.validateTime(time.value) == true){
-          form.controls[time.name].setErrors(null)
+
+          form.controls[time.name].setErrors(null) //if correct match, no errors found in form
         }
       }
+
     
       if(form.invalid){
         return
       }
+
+
       const session= {
           id: "null",
           name: form.value.name,
           email: form.value.email,
           studentID: Number(form.value.studentID),
-          time: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
-          testLaps: [this.laptoMilli.transform(form.value.lapTest1), this.laptoMilli.transform(form.value.lapTest2)],
+          finalTime: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
+          fastestLaps: [this.laptoMilli.transform(form.value.lapTest1), this.laptoMilli.transform(form.value.lapTest2)],
           personal: form.value.personal
       }
       

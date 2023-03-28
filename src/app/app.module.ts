@@ -45,7 +45,6 @@ const maskConfig: Partial<IConfig> = {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ZXingScannerModule,
     MaterialModule,
     FormsModule,
     NgxMaskModule.forRoot(maskConfig),

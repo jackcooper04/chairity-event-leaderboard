@@ -1,11 +1,12 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const user = require('../models/user')
+const user = require('../models/user');
+const checkAuth = require("../middleware/check-auth");
 dotenv.config();
 
 const router = express.Router();
 
-router.post("/",(req,res,next) => {
+router.post("/",checkAuth,(req,res,next) => {
     const newUser = new user({
         name:req.body.name,
         id:req.body.id,

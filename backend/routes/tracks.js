@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const track = require('../models/tracks')
+const track = require('../models/tracks');
+const checkAuth = require("../middleware/check-auth");
 dotenv.config();
 
 const router = express.Router();
@@ -15,7 +16,7 @@ const router = express.Router();
 //     res.send('OK')
 // });
 
-router.get('/',(req,res,next) => {
+router.get('/',checkAuth,(req,res,next) => {
     track.find({})
     .then((result) => {
         res.json({tracks:result})

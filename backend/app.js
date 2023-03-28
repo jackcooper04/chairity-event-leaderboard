@@ -22,7 +22,7 @@ const sigHashAlg = 'sha256'
 const trackRoute = require('./routes/tracks');
 const timeRoute = require('./routes/timing');
 const userRoute = require('./routes/users');
-
+const paymentRoute = require('./routes/payments');
 //Init DotENV
 dotenv.config();
 
@@ -88,6 +88,7 @@ app.use("/", express.static(path.join(__dirname,"../dist/leaderboard")));
 app.use("/api/track",trackRoute);
 app.use("/api/user",userRoute);
 app.use("/api/time",timeRoute);
+app.use("/api/pay",paymentRoute);
 
 app.post("/update",verifyPostData,(req,res,next) => {
   console.log(req.body)

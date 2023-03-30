@@ -14,8 +14,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Track</mat-label>
           <mat-select name="track" [ngModel] required>
-            <mat-option *ngFor="let trackOption of trackOptions" [value]="trackOption.id" >
-              {{trackOption.name}}
+            <mat-option *ngFor="let trackOption of trackOptions" [value]="trackOption._id" >
+              {{trackOption.track_name}}
             </mat-option>
           </mat-select>
         </mat-form-field>

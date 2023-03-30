@@ -19,7 +19,7 @@ router.post("/",checkAuth, (req, res, next) => {
     fastestTime: req.body.session.fastest,
     totalTime: req.body.session.total,
     user: req.body.user,
-    track_id: req.body.track_id
+    trackId: req.body.track_id
   });
   newSession.save();
   res.sendStatus(200);
@@ -36,11 +36,12 @@ router.get("/", checkAuth,(req, res, next) => {
     .then((result)=>{
       var newArray = new Array();
       for (idx in result){
+        console.log(result)
         if (result[idx].track_id.track_name == req.query.track){
           newArray.push(result[idx]);
         }
       }
-      res.json(newArray)
+      res.json({sessions:newArray})
     });
 
 

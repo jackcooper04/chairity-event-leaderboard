@@ -5,5 +5,5 @@ export interface Record{
     fastestLap: number,
     email?: string,
     studentID?: number,
-    personal: boolean,
+    marker: boolean,
 }

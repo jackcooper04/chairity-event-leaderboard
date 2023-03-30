@@ -12,8 +12,17 @@ router.post("/",checkAuth,(req,res,next) => {
         id:req.body.id,
         email:req.body.email
     });
-    newUser.save();
-    res.sendStatus(200);
+    newUser.save().then((result)=>{
+        res.json({user:result})
+    }).catch((err)=>{
+        console.log(err);
+    })
+    // user.findOne({id:req.body.id})
+    // .then((result) => {
+    //     console.log(result)
+    //     
+    // })
+
 })
 
 module.exports = router;

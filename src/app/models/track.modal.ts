@@ -1,4 +1,4 @@
 export interface Track{
-    id: any;
-    name: string,
+    _id: any;
+    track_name: string,
 }

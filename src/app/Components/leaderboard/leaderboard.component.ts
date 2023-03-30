@@ -13,7 +13,7 @@ import { Record } from '../../models/record.modal';
 
 export class LeaderboardComponent implements OnInit{
   trackInfo : any[] = []
-  sessions: Record[]= [];
+  sessions: any[]= [];
   public tracksSub : Subscription;
   public sessionSub: Subscription;
 
@@ -21,18 +21,28 @@ export class LeaderboardComponent implements OnInit{
   constructor(private leaderboardService: LeaderboardService){}
   ngOnInit(): void{
     console.log("running on Init")
+    
+ 
+    this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((data: any)=>{
+        this.trackInfo = data.tracks
+       console.log(data.tracks);
+       this.leaderboardService.getSessions(this.trackInfo[0].track_name)
+
+        // if (data){
+        //   console.log(this.trackInfo[0])
+        //   this.leaderboardService.getSessions(this.trackInfo[0]._id)
+        // }
+        
+    });
     this.leaderboardService.getTracks()
     
-    this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((data: any)=>{
-        this.trackInfo = data
-    });
-    this.leaderboardService.getSessions(this.trackInfo[0].id)
-    this.tracksSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any)=>{
-        this.sessions = data
+   // this.leaderboardService.getSessions(this.trackInfo[0]._id)
+    this.sessionSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any)=>{
+        this.sessions = data.sessions;
     });
 
   } 
   onTabChanged(value: any){
-    this.leaderboardService.getSessions(this.trackInfo[value.index].id)
+    this.leaderboardService.getSessions(this.trackInfo[value.index].track_name)
   }
 }

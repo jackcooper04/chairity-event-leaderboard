@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { LapToMilliPipe } from './pipes/lap-to-milli.pipe';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PaymentListComponent } from './Components/dashboard/payment-list/payment-list.component';
+import { AuthInterceptor } from './auth-interceptor';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -50,7 +51,7 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskModule.forRoot(maskConfig),
     
   ],
-  providers: [LeaderboardService, DatePipe, LapToMilliPipe],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},LeaderboardService, DatePipe, LapToMilliPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

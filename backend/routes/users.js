@@ -6,23 +6,10 @@ dotenv.config();
 
 const router = express.Router();
 
-router.post("/",checkAuth,(req,res,next) => {
-    const newUser = new user({
-        name:req.body.name,
-        id:req.body.id,
-        email:req.body.email
-    });
-    newUser.save().then((result)=>{
-        res.json({user:result})
-    }).catch((err)=>{
-        console.log(err);
-    })
-    // user.findOne({id:req.body.id})
-    // .then((result) => {
-    //     console.log(result)
-    //     
-    // })
-
+router.get("/",checkAuth,(req,res,next) => {
+  user.find({})
+  .then((result) => {
+    res.json({users:result})
+  })
 })
-
 module.exports = router;

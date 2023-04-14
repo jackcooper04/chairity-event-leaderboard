@@ -5,28 +5,45 @@ const session = require('../models/session');
 const tracks = require('../models/tracks');
 const user = require('../models/user');
 const lap = require('../models/lap');
-const checkAuth = require('../middleware/check-auth')
+const checkAuth = require('../middleware/check-auth');
+
 dotenv.config();
 
 const router = express.Router();
 
 
-router.post("/",checkAuth, (req, res, next) => {
 
-  const newSession = new lap({
-    lapTimes: req.body.session.laptimes,
-    marker: req.body.session.marker,
-    fastestTime: req.body.session.fastest,
-    totalTime: req.body.session.total,
-    user: req.body.user,
-    trackId: req.body.track_id
-  });
-  newSession.save();
-  res.sendStatus(200);
-
+router.post("/",checkAuth, (req,res,next) => {
+  user.findOne({id:req.body.user.id})
+  .then((result) => {
+    if (!result){
+      var newUser = new user({
+        name:req.body.user.name,
+        id:req.body.user.id,
+        email:req.body.user.email
+      });
+      newUser.save();
+    } else {
+      newUser = result;
+    };
+    var newSession = new lap({
+      user:newUser._id,
+      track_id:req.body.trackID,
+      lapTimes:req.body.trackTimes,
+      fastestTimeIdx:req.body.fastestTimeIdx,
+      totalTime:req.body.totalTime,
+      marker:req.body.marker
+    });
+    console.log(newSession)
+    newSession.save();
+    res.sendStatus(200);
+  })
 
 
 })
+
+
+
 
 
 router.get("/", checkAuth,(req, res, next) => {

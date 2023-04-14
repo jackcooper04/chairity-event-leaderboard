@@ -5,8 +5,11 @@ dotenv.config();
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = (token == process.env.AUTH_KEY)
 
+    if (token == process.env.AUTH_KEY){
+
+      next();
+    }
     next();
   } catch (error) {
     console.log("notauth");

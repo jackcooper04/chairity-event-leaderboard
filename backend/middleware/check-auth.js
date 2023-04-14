@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
       next();
     } else {
       console.log(token)
+      console.log(process.env.AUTH_KEY)
       console.log("notauth");
       res.status(401).json({
         message: "AUTHFAIL",

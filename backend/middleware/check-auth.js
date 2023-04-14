@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
       next();
     }
-    next();
+
   } catch (error) {
     console.log("notauth");
     res.status(401).json({

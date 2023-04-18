@@ -5,8 +5,8 @@ import { dashboardComponent } from './Components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: LeaderboardComponent},
-  {path: 'string', component: dashboardComponent},
-  
+  {path: 'supersecretpage', component: dashboardComponent},
+
 ]
 
 @NgModule({

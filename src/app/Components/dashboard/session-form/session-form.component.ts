@@ -61,7 +61,11 @@ export class SessionFormComponent {
       }
     }
     let laps = [this.laptoMilli.transform(form.value.lapTest1),this.laptoMilli.transform(form.value.lapTest2), this.laptoMilli.transform(form.value.lapTest3) ]
-    let sortedTimes = laps.sort((a,b) => (a< b) ? 1 : (a< b) ? -1 : 0)
+    // let sortedTimes = laps.sort((a,b) => (a< b) ? 1 : (a< b) ? -1 : 0);
+    let sortedTimes = laps.sort(function(a, b) {
+      return a - b;
+    });
+    console.log(sortedTimes)
     let fastestLap = sortedTimes[0]
 
     // Checks if student ID was used and formats to email , otherwise passes email

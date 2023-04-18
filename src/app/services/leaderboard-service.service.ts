@@ -11,11 +11,10 @@ const API_URL = environment.API_URL;
 })
 
 export class LeaderboardService {
-  private tracks: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  private sessions: BehaviorSubject<Record[]> = new BehaviorSubject<Record[]>([]);
   private payments: BehaviorSubject<Payment[]> = new BehaviorSubject<Payment[]>([]);
   private testTrack = new Subject<{tracks:any[]}>();
   private testSession  = new Subject<{sessions:any[]}>();
+  private users  = new Subject<{users:any[]}>();
   tracksStored: any[] = []
   sessionsStored: Record[] = []
   paymentsStored: Payment[] = [{id:"null", payee:'Yuki', amount:9.02, type:"monzo", created: new Date().valueOf()}]
@@ -49,33 +48,24 @@ export class LeaderboardService {
     .get<{sessions:any[]}>(API_URL+"/time?track="+trackId)
     .subscribe(trackResponse => {
       this.sessionsStored = trackResponse.sessions;
-      //this.sessionsStored = sessionList
-      //console.log(trackResponse)
      
       this.testSession.next({sessions:trackResponse.sessions})
     })
-    //let sessionList:Record[]= [{id:"12321313",name: "dude3", finalTime:110566, fastestLap:110555, email: "tada", personal: false}, {id:"12321313",name: "dude2", finalTime:110566, fastestLap:110555, email: "tada", personal: false}]
-    //dummy data for Session information
-
-    //this.sessionsStored = sessionList
-    //this.sessions.next([...this.sessionsStored])
   }
   // Adds session to local list, then runs get Session
-  addSession(session: any, trackIdId: any,userId:any){
-    console.log(trackIdId)
+  addSession(session: any, trackId: any,user:any){
     const finalBody = {
-      session:session,
-      trackId:trackIdId,
-      user:userId
+      user: user,
+      trackID:session.trackID,
+      lapTimes:session.lapTimes,
+      fastestTimeIdx:session.fastestidx,
+      totalTime:session.total,
+      marker:session.marker
     };
+    console.log(finalBody)
     this.http
     .post<{ user: any }>(API_URL + "/time",finalBody)
-    .subscribe(trackResponse => {
-      this.getSessions(trackIdId);
-    })
-    //this.sessionsStored.push(session)
-    // this.getSessions(trackId)
-    //this.sessions.next([...this.sessionsStored])
+    .subscribe(trackResponse => {})
   }
 
 
@@ -97,7 +87,19 @@ export class LeaderboardService {
     
     this.getPayments()
   }
+  // User Data Control
+  getUsersListUpdateListener(){
+    return this.users.asObservable();
+  }
+  getUsers(){
+    this.http
+    .get<{users:any[]}>(API_URL+"/user")
+    .subscribe(userResponse => {
+      //console.log(trackResponse)
+     
+      this.users.next({users:userResponse.users})
+  })
 
 
 }
-
+}

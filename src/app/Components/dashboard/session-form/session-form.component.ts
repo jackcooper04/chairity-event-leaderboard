@@ -17,7 +17,10 @@ const API_URL = environment.API_URL;
 
 export class SessionFormComponent {
   public tracksSub: Subscription;
+  public userSub: Subscription;
+
   trackOptions: Track[] = []
+  users: any[] = []
 
   isManual = false; //is Email entered manually
   isMarker = false;
@@ -28,11 +31,15 @@ export class SessionFormComponent {
   constructor(private lbService: LeaderboardService,private http:HttpClient) { }
 
   ngOnInit(): void {
-    //this.lbService.getTracks()
+    this.lbService.getTracks()
+    this.lbService.getUsers()
     this.tracksSub = this.lbService.getTrackUpdateListener().subscribe((data: any) => {
       this.trackOptions = data.tracks
     });
-
+    this.userSub = this.lbService.getUsersListUpdateListener().subscribe((data:any)=>{
+      this.users = data.users
+    })
+    
   }
 
 
@@ -59,7 +66,7 @@ export class SessionFormComponent {
 
     // Checks if student ID was used and formats to email , otherwise passes email
     let finalEmail = ""
-    if (this.isManual == false) {
+    if (this.isManual == false && form.value.userId !== "new") {
       finalEmail = form.value.studentId.toString() + "@student.chelmsford.ac.uk"
     } else {
       finalEmail = form.value.email
@@ -68,31 +75,36 @@ export class SessionFormComponent {
       return
     }
 
-    const user = {
-      name: form.value.name,
-      id: form.value.studentId,
-      email: finalEmail
+
+    let user = {};
+    if(form.value.userId == "new"){
+      user = {
+        id:form.value.studentId,
+        name: form.value.name,
+        email: finalEmail
+      };
+    }else{
+      user = {
+        id: form.value.userId
+      }
+    }
+    
+    let marker = form.value.marker
+    if (marker == undefined){
+      marker = false;
+    }else{
+      marker = true
+    }
+    const session = {
+      trackID: form.value.track,
+      total: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
+      lapTimes:sortedTimes,
+      fastestidx: 0,
+      marker: true,
     };
-    this.http
-      .post<{ user: any }>(API_URL + "/user",user)
-      .subscribe(trackResponse => {
-        let marker = form.value.marker
-        if (marker == undefined){
-          marker = false;
-        }
-        console.log(trackResponse.user)
-        let userId = trackResponse.user._id;
-        console.log(form.value.markerr)
-        const session = {
-          total: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
-          laptimes:sortedTimes,
-          fastest: 0,
-          marker: marker
-        };
-        console.log(session)
-        this.lbService.addSession(session, form.value.track,userId)
-      })
-        
+    
+    this.lbService.addSession(session, form.value.track, user)
+    form.reset()
 
        
         // form.resetForm()

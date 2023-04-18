@@ -19,7 +19,7 @@
                     <span *ngIf="record.marker == true">Marker</span>
                     <span class="name">{{record.user.name}}</span> 
                     <span class="finalTime">{{ record.totalTime | timeConvert}}</span>
-                    <span class="fastestLap">{{ record.lapTimes[record.fastestTime] | timeConvert}}</span>
+                    <span class="fastestLap">{{ record.lapTimes[record.fastestTimeIdx] | timeConvert}}</span>
 
             </mat-list-item>
         </mat-list>

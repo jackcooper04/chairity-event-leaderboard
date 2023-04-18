@@ -4,12 +4,18 @@
   </mat-card-header>
     
     <form class="example-form" (submit)="sessionFormSubmit(sessionForm)" #sessionForm="ngForm">
-
-      <!-- ENTER NAME -->
-        <mat-form-field floatLabel="auto">
-            <mat-label>Name</mat-label>
-            <input matInput name="name" required  ngModel>
-        </mat-form-field>
+      <!-- ENTER User -->
+      <mat-form-field appearance="fill">
+        <mat-label>Racer</mat-label>
+        <mat-select name="userId" [ngModel] required>
+          <mat-option value="new">
+            New Racer
+          </mat-option>
+          <mat-option *ngFor="let user of users" [value]="user._id" >
+            {{user.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
         <!-- Select Track -->
         <mat-form-field appearance="fill">
           <mat-label>Track</mat-label>
@@ -21,17 +27,7 @@
         </mat-form-field>
 
         <!-- Select if user wants to enter student id or manual Email -->
-        <mat-slide-toggle [checked]="isManual" class="manualToggle" (change)="toggle($event)">Manual Email?</mat-slide-toggle> <br>
-
-        <!-- Email Input or Student ID Input -->
-        <mat-form-field *ngIf="isManual == true">
-            <mat-label>Email</mat-label>
-            <input matInput name="email"   ngModel>
-        </mat-form-field>
-        <mat-form-field *ngIf="isManual == false">
-            <mat-label>Student ID</mat-label>
-            <input matInput name="studentId" [showMaskTyped]="true" mask="00000000" ngModel>
-        </mat-form-field>
+        
         
 
           <!-- Fastest Lap -->
@@ -81,6 +77,29 @@
         ngModel>
       <mat-error >Incorrect Format or Missing Date</mat-error>
     </mat-form-field>
+
+    <mat-card *ngIf="sessionForm.value.userId == 'new'">
+      <mat-card-header>
+        <mat-card-title>User Details</mat-card-title>
+      </mat-card-header>
+      <mat-slide-toggle [checked]="isManual" class="manualToggle" (change)="toggle($event)">Manual Email?</mat-slide-toggle> <br>
+      <mat-form-field floatLabel="auto">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" required  ngModel>
+      </mat-form-field>
+      <mat-form-field>
+          <mat-label>Student ID</mat-label>
+          <input matInput name="studentId" [showMaskTyped]="true" mask="00000000" ngModel>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isManual == true">
+          <mat-label>Email</mat-label>
+          <input matInput name="email"   ngModel>
+      </mat-form-field>
+    </mat-card>
+
+      <!-- Email Input or Student ID Input -->
+      
 
         <!-- Check if its a Marker -->
           <mat-slide-toggle

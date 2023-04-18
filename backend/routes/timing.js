@@ -14,7 +14,8 @@ const router = express.Router();
 
 
 router.post("/",checkAuth, (req,res,next) => {
-  user.findOne({id:req.body.user.id})
+  console.log(req.body.user.id)
+  user.findOne({_id:req.body.user.id})
   .then((result) => {
     if (!result){
       var newUser = new user({
@@ -36,7 +37,7 @@ router.post("/",checkAuth, (req,res,next) => {
     });
     console.log(newSession)
     newSession.save();
-    res.sendStatus(200);
+    res.json({message:'CONFIRM'});
   })
 
 

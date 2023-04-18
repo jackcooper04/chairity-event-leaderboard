@@ -18,7 +18,7 @@ export class LeaderboardService {
   tracksStored: any[] = []
   sessionsStored: Record[] = []
   paymentsStored: Payment[] = [{id:"null", payee:'Yuki', amount:9.02, type:"monzo", created: new Date().valueOf()}]
-  
+
   constructor(private http:HttpClient) { }
   //Track Data Control
 
@@ -29,18 +29,18 @@ export class LeaderboardService {
   getSessionListUpdateListener(){
     return this.testSession.asObservable();
   }
-  
+
   // For each track in "storedTracks", it will sort them, then pushes all to the listen object
   getTracks(){
     this.http
     .get<{tracks:any[]}>(API_URL+"/track")
     .subscribe(trackResponse => {
       //console.log(trackResponse)
-     
+
       this.testTrack.next({tracks:trackResponse.tracks})
     })
     //let trackInfo = [{name:"bob", id:"someValue"}, {name:"bob", id:"someOtherValue"}] //dummy data for track information
-  
+
   }
 
   getSessions(trackId:string){ //passing through an id based on what track is opened
@@ -48,7 +48,7 @@ export class LeaderboardService {
     .get<{sessions:any[]}>(API_URL+"/time?track="+trackId)
     .subscribe(trackResponse => {
       this.sessionsStored = trackResponse.sessions;
-     
+
       this.testSession.next({sessions:trackResponse.sessions})
     })
   }
@@ -57,7 +57,7 @@ export class LeaderboardService {
     const finalBody = {
       user: user,
       trackID:session.trackID,
-      lapTimes:session.lapTimes,
+      trackTimes:session.lapTimes,
       fastestTimeIdx:session.fastestidx,
       totalTime:session.total,
       marker:session.marker
@@ -65,7 +65,9 @@ export class LeaderboardService {
     console.log(finalBody)
     this.http
     .post<{ user: any }>(API_URL + "/time",finalBody)
-    .subscribe(trackResponse => {})
+    .subscribe(trackResponse => {
+      console.log(trackResponse)
+    })
   }
 
 
@@ -84,7 +86,7 @@ export class LeaderboardService {
   // Adds payment to local list, then runs getsPayments
   addPayment(payment: Payment){
     this.paymentsStored.push(payment)
-    
+
     this.getPayments()
   }
   // User Data Control
@@ -96,7 +98,7 @@ export class LeaderboardService {
     .get<{users:any[]}>(API_URL+"/user")
     .subscribe(userResponse => {
       //console.log(trackResponse)
-     
+
       this.users.next({users:userResponse.users})
   })
 

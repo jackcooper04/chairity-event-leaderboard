@@ -39,7 +39,7 @@ export class SessionFormComponent {
     this.userSub = this.lbService.getUsersListUpdateListener().subscribe((data:any)=>{
       this.users = data.users
     })
-    
+
   }
 
 
@@ -65,14 +65,20 @@ export class SessionFormComponent {
     let fastestLap = sortedTimes[0]
 
     // Checks if student ID was used and formats to email , otherwise passes email
-    let finalEmail = ""
+    let finalEmail = "";
+    console.log(form.value)
+    console.log(this.users)
     if (this.isManual == false && form.value.userId !== "new") {
-      finalEmail = form.value.studentId.toString() + "@student.chelmsford.ac.uk"
+      for (let idx in this.users){
+        if (this.users[idx]._id == form.value.userId){
+            finalEmail = this.users[idx].id.toString() + "@student.chelmsford.ac.uk";
+        };
+      };
     } else {
       finalEmail = form.value.email
     }
     if (form.invalid) {
-      return
+      return;
     }
 
 
@@ -88,7 +94,7 @@ export class SessionFormComponent {
         id: form.value.userId
       }
     }
-    
+
     let marker = form.value.marker
     if (marker == undefined){
       marker = false;
@@ -102,11 +108,11 @@ export class SessionFormComponent {
       fastestidx: 0,
       marker: true,
     };
-    
+    console.log(session)
     this.lbService.addSession(session, form.value.track, user)
-    form.reset()
+    //form.reset()
 
-       
+
         // form.resetForm()
 
       }

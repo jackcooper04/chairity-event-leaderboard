@@ -42,6 +42,14 @@ mongoose.connect(process.env.DB_URI, {
     console.log('Connection Failed' + err);
   });
 
+
+
+
+//Initalise Morgan and BodyParser
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -54,12 +62,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-
-
-//Initalise Morgan and BodyParser
-app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 //Assign Routes
 function verifyPostData(req, res, next) {

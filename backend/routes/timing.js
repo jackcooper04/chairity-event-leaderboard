@@ -15,18 +15,12 @@ const router = express.Router();
 
 router.post("/",checkAuth, (req,res,next) => {
   console.log(req.body.user.id)
-  user.findOne({_id:req.body.user.id})
+
+  user.find({_id:req.body.user.id})
   .then((result) => {
-    if (!result){
-      var newUser = new user({
-        name:req.body.user.name,
-        id:req.body.user.id,
-        email:req.body.user.email
-      });
-      newUser.save();
-    } else {
-      newUser = result;
-    };
+
+    newUser = result;
+
     var newSession = new lap({
       user:newUser._id,
       track_id:req.body.trackID,
@@ -39,7 +33,29 @@ router.post("/",checkAuth, (req,res,next) => {
     newSession.save();
     res.json({message:'CONFIRM'});
   })
+  .catch((error) => {
 
+      console.log(req.body)
+      var newUser = new user({
+        name:req.body.user.name,
+        id:req.body.user.id,
+        email:req.body.user.email
+      });
+      newUser.save();
+
+    var newSession = new lap({
+      user:newUser._id,
+      track_id:req.body.trackID,
+      lapTimes:req.body.trackTimes,
+      fastestTimeIdx:req.body.fastestTimeIdx,
+      totalTime:req.body.totalTime,
+      marker:req.body.marker
+    });
+    console.log(newSession)
+    newSession.save();
+    res.json({message:'CONFIRM'});
+    console.log('No User Found Route')
+  })
 
 })
 

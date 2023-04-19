@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LeaderboardService } from '../../services/leaderboard-service.service';
 import { Record } from '../../models/record.modal';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leaderboard',
@@ -11,40 +13,47 @@ import { Record } from '../../models/record.modal';
 
 
 
-export class LeaderboardComponent implements OnInit{
-  trackInfo : any[] = []
-  sessions: any[]= [];
-  public tracksSub : Subscription;
+export class LeaderboardComponent implements OnInit {
+  trackInfo: any[] = []
+  sessions: any[] = [];
+  public tracksSub: Subscription;
   public sessionSub: Subscription;
+  public idTest: any;
 
-  
-  constructor(private leaderboardService: LeaderboardService){}
-  ngOnInit(): void{
+  constructor(private leaderboardService: LeaderboardService, private route: ActivatedRoute,private router:Router) { }
+  ngOnInit(): void {
     console.log("running on Init")
-    
- 
-    this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((data: any)=>{
-        this.trackInfo = data.tracks
-       console.log(data.tracks);
-       this.leaderboardService.getSessions(this.trackInfo[0].track_name)
 
-        // if (data){
-        //   console.log(this.trackInfo[0])
-        //   this.leaderboardService.getSessions(this.trackInfo[0]._id)
-        // }
-        
+    console.log('Called Constructor');
+    this.route.queryParams.subscribe(params => {
+      if (params['page'] == 'supersecretpassword') {
+        this.router.navigate(['supersecretpage'])
+      }
+
+    });
+    this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((data: any) => {
+      this.trackInfo = data.tracks
+      console.log(data.tracks);
+      this.leaderboardService.getSessions(this.trackInfo[0].track_name)
+
+      // if (data){
+      //   console.log(this.trackInfo[0])
+      //   this.leaderboardService.getSessions(this.trackInfo[0]._id)
+      // }
+
     });
     this.leaderboardService.getTracks()
-    
-   // this.leaderboardService.getSessions(this.trackInfo[0]._id)
-    this.sessionSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any)=>{
-        this.sessions = data.sessions;
-        console.log(this.sessions)
+
+    // this.leaderboardService.getSessions(this.trackInfo[0]._id)
+    this.sessionSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any) => {
+      this.sessions = data.sessions;
+      console.log(this.sessions)
     });
 
-  } 
-  onTabChanged(value: any){
+  }
+
+  onTabChanged(value: any) {
     this.leaderboardService.getSessions(this.trackInfo[value.index].track_name)
-    
+
   }
 }

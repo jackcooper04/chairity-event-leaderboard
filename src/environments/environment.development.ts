@@ -1,4 +1,4 @@
 export const environment = {
-    API_URL:"http://speed2inclusion.duckdns.org/api",
-    API_TOKEN:"2MVA7od!gUNLrFdUt*Cqd_Bf!CbtmEB4jKn2d-BvgrhvxnKxa-aGVs8dF7GuNVp7@GctAWcRv_PKiuTaBMk!KkpF*aHiLdkKQQpg"
+    API_URL:"https://8080-jackcooper0-chairityeve-x8je4li0rp6.ws-eu94.gitpod.io/api",
+    API_TOKEN:"irhgiofhU*TYUI£BJh8dhuiyU*YT&*TU£JKBIJGUghjdbjfgeu"
 };

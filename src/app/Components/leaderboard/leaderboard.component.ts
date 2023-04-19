@@ -39,10 +39,12 @@ export class LeaderboardComponent implements OnInit{
    // this.leaderboardService.getSessions(this.trackInfo[0]._id)
     this.sessionSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any)=>{
         this.sessions = data.sessions;
+        console.log(this.sessions)
     });
 
   } 
   onTabChanged(value: any){
     this.leaderboardService.getSessions(this.trackInfo[value.index].track_name)
+    
   }
 }

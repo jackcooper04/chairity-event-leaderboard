@@ -11,7 +11,7 @@
           <mat-option value="new">
             New Racer
           </mat-option>
-          <mat-option *ngFor="let user of users" [value]="user._id" >
+          <mat-option *ngFor="let user of users" [value]="user" >
             {{user.name}}
           </mat-option>
         </mat-select>
@@ -106,7 +106,6 @@
           name="personal"
           class="example-margin"
           color="primary"
-          [checked]="isMarker"
           class="markerToggle"
           ngModel >
         Marker?

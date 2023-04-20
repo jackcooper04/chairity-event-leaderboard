@@ -21,7 +21,7 @@ export class SessionFormComponent {
 
   trackOptions: Track[] = []
   users: any[] = []
-
+  userInfo:any;
   isManual = false; //is Email entered manually
   isMarker = false;
 
@@ -65,28 +65,37 @@ export class SessionFormComponent {
     let sortedTimes = laps.sort(function(a, b) {
       return a - b;
     });
-    console.log(sortedTimes)
+
     let fastestLap = sortedTimes[0]
 
     // Checks if student ID was used and formats to email , otherwise passes email
     let finalEmail = "";
-    console.log(form.value)
-    console.log(this.users)
-    if (this.isManual == false && form.value.userId !== "new") {
+    let usersId = "";
+    let user = {};
+    this.userInfo = {}
+    console.log(form.value.userId != "new")
+    if (form.value.userId != "new") {
       for (let idx in this.users){
-        if (this.users[idx]._id == form.value.userId){
+        console.log('loop')
+        if (this.users[idx]._id == form.value.userId._id){
+          console.log('FOUND')
+          this.userInfo = this.users[idx];
             finalEmail = this.users[idx].id.toString() + "@student.chelmsford.ac.uk";
+            usersId = this.users[idx]._id;
         };
       };
-    } else {
-      finalEmail = form.value.email
     }
+
     if (form.invalid) {
       return;
     }
 
-
-    let user = {};
+    if(form.value.manualEmail == true){
+      finalEmail=form.value.email
+    }else{
+      finalEmail = form.value.studentId
+    }
+   
     if(form.value.userId == "new"){
       user = {
         id:form.value.studentId,
@@ -95,29 +104,22 @@ export class SessionFormComponent {
       };
     }else{
       user = {
-        id: form.value.userId
+        id: usersId
       }
+    
     }
-
-    let marker = form.value.marker
-    if (marker == undefined){
-      marker = false;
-    }else{
-      marker = true
-    }
+    let marker = form.value.personal
+    console.log(marker)
     const session = {
       trackID: form.value.track,
       total: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
       lapTimes:sortedTimes,
       fastestidx: 0,
-      marker: true,
+      marker: marker
     };
-    console.log(session)
-    this.lbService.addSession(session, form.value.track, user)
-    //form.reset()
-
-
-        // form.resetForm()
+    console.log(user)
+    // this.lbService.addSession(session, form.value.track, user)
+  //  form.reset()
 
       }
   // Checks that the seconds are less that 60, as otherwise the time would be invalid

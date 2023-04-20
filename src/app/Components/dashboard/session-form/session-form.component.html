@@ -82,7 +82,7 @@
       <mat-card-header>
         <mat-card-title>User Details</mat-card-title>
       </mat-card-header>
-      <mat-slide-toggle [checked]="isManual" class="manualToggle" (change)="toggle($event)">Manual Email?</mat-slide-toggle> <br>
+      <mat-slide-toggle name="manualEmail" [checked]="isManual" class="manualToggle" (change)="toggle($event)" ngModel>Manual Email?</mat-slide-toggle> <br>
       <mat-form-field floatLabel="auto">
         <mat-label>Name</mat-label>
         <input matInput name="name" required  ngModel>

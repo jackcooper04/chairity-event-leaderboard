@@ -35,7 +35,7 @@ export class LeaderboardService {
     this.http
     .get<{tracks:any[]}>(API_URL+"/track")
     .subscribe(trackResponse => {
-      //console.log(trackResponse)
+      console.log(trackResponse)
 
       this.testTrack.next({tracks:trackResponse.tracks})
     })
@@ -51,6 +51,7 @@ export class LeaderboardService {
 
       this.testSession.next({sessions:trackResponse.sessions})
     })
+    console.log("got session")
   }
   // Adds session to local list, then runs get Session
   addSession(session: any, trackId: any,user:any){

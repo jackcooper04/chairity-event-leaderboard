@@ -73,28 +73,27 @@ export class SessionFormComponent {
     let usersId = "";
     let user = {};
     this.userInfo = {}
-    console.log(form.value.userId != "new")
     if (form.value.userId != "new") {
       for (let idx in this.users){
-        console.log('loop')
         if (this.users[idx]._id == form.value.userId._id){
-          console.log('FOUND')
           this.userInfo = this.users[idx];
             finalEmail = this.users[idx].id.toString() + "@student.chelmsford.ac.uk";
             usersId = this.users[idx]._id;
         };
       };
+    }else{
+      if(form.value.manualEmail == true){
+        finalEmail=form.value.email
+      }else{
+        finalEmail = form.value.studentId +"@student.chelmsford.ac.uk"
+      }
     }
 
     if (form.invalid) {
       return;
     }
 
-    if(form.value.manualEmail == true){
-      finalEmail=form.value.email
-    }else{
-      finalEmail = form.value.studentId
-    }
+    
    
     if(form.value.userId == "new"){
       user = {
@@ -108,19 +107,17 @@ export class SessionFormComponent {
       }
     
     }
-    let marker = form.value.personal
-    console.log(marker)
+    let markerResult = form.value.personal
+    if(markerResult==""){markerResult=false}
     const session = {
       trackID: form.value.track,
       total: this.laptoMilli.transform(form.value.time), //converts the entered time to milli
       lapTimes:sortedTimes,
       fastestidx: 0,
-      marker: marker
+      marker: markerResult
     };
-    console.log(user)
-    // this.lbService.addSession(session, form.value.track, user)
-  //  form.reset()
-
+    this.lbService.addSession(session, form.value.track, user)
+   form.reset()
       }
   // Checks that the seconds are less that 60, as otherwise the time would be invalid
   validateTime(time: string): boolean{

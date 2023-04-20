@@ -16,7 +16,7 @@ const router = express.Router();
 router.post("/",checkAuth, (req,res,next) => {
   console.log(req.body.user.id)
 
-  user.find({_id:req.body.user.id})
+  user.findOne({_id:req.body.user.id})
   .then((result) => {
 
     newUser = result;
@@ -29,13 +29,13 @@ router.post("/",checkAuth, (req,res,next) => {
       totalTime:req.body.totalTime,
       marker:req.body.marker
     });
-    console.log(newSession)
+    //console.log(newSession)
     newSession.save();
     res.json({message:'CONFIRM'});
   })
   .catch((error) => {
 
-      console.log(req.body)
+   //   console.log(req.body)
       var newUser = new user({
         name:req.body.user.name,
         id:req.body.user.id,
@@ -51,10 +51,10 @@ router.post("/",checkAuth, (req,res,next) => {
       totalTime:req.body.totalTime,
       marker:req.body.marker
     });
-    console.log(newSession)
+   // console.log(newSession)
     newSession.save();
     res.json({message:'CONFIRM'});
-    console.log('No User Found Route')
+  //  console.log('No User Found Route')
   })
 
 })

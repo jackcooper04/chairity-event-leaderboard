@@ -15,10 +15,12 @@ import { Router } from '@angular/router';
 
 export class LeaderboardComponent implements OnInit {
   trackInfo: any[] = []
-  sessions: any[] = [];
+  sessions: any[] = []
   public tracksSub: Subscription;
   public sessionSub: Subscription;
   public idTest: any;
+
+  currentTab: any;
 
   constructor(private leaderboardService: LeaderboardService, private route: ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
@@ -47,12 +49,13 @@ export class LeaderboardComponent implements OnInit {
   }
 
   onTabChanged(value: any) {
+    this.currentTab = value
     console.log(this.trackInfo[value.index].track_name)
     let interval:any;
     clearInterval(interval)
     this.leaderboardService.getSessions(this.trackInfo[value.index].track_name)
     let root = this
-    interval = setInterval(function () {root.leaderboardService.getSessions(root.trackInfo[value.index].track_name)}, 5000);
+    interval = setInterval(function () {root.leaderboardService.getSessions(root.trackInfo[root.currentTab.index].track_name)}, 5000);
   }
 
 }

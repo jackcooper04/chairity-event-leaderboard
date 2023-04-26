@@ -17,8 +17,7 @@
             </mat-list-item>
             <mat-list-item class="list-item" role="listitem" *ngFor="let record of sessions; let i = index" [attr.data-index]="i"  [ngClass]="{'firstplace': i == 0 , 'personal': record.marker == true}">
                     
-                    <span class="postion" *ngIf="record.marker !== true">{{i+1}}</span>  
-                    <span *ngIf="record.marker == true">Marker</span>
+                    <span class="postion">{{i+1}}</span>  
                     <span class="name">{{record.user.name}}</span> 
                     <span class="finalTime">{{ record.totalTime | timeConvert}}</span>
                     <span class="fastestLap">{{ record.lapTimes[record.fastestTimeIdx] | timeConvert}}</span>

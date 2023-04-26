@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, delay } from 'rxjs';
 import { LeaderboardService } from '../../services/leaderboard-service.service';
 import { Record } from '../../models/record.modal';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-leaderboard',
@@ -21,6 +22,11 @@ export class LeaderboardComponent implements OnInit {
   public idTest: any;
 
   currentTab: any;
+  interval: any;
+
+  selected=2;
+  slideshow = false;
+  slideshowInterval: any;
 
   constructor(private leaderboardService: LeaderboardService, private route: ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
@@ -28,7 +34,6 @@ export class LeaderboardComponent implements OnInit {
       if (params['page'] == 'supersecretpassword') {
         this.router.navigate(['supersecretpage'])
       }
-      
     });
     this.tracksSub = this.leaderboardService.getTrackUpdateListener().subscribe((data: any) => {
      
@@ -39,7 +44,6 @@ export class LeaderboardComponent implements OnInit {
 
     // this.leaderboardService.getSessions(this.trackInfo[0]._id)
     this.sessionSub = this.leaderboardService.getSessionListUpdateListener().subscribe((data: any) => {
-     // console.log(data)
       let sortedSessions = data.sessions.sort(function(a:any, b:any) {
         return a.totalTime - b.totalTime;
       });
@@ -50,12 +54,30 @@ export class LeaderboardComponent implements OnInit {
 
   onTabChanged(value: any) {
     this.currentTab = value
-    console.log(this.trackInfo[value.index].track_name)
-    let interval:any;
-    clearInterval(interval)
+    
     this.leaderboardService.getSessions(this.trackInfo[value.index].track_name)
     let root = this
-    interval = setInterval(function () {root.leaderboardService.getSessions(root.trackInfo[root.currentTab.index].track_name)}, 5000);
+    clearInterval(root.interval)
+    root.interval = setInterval(function () {root.leaderboardService.getSessions(root.trackInfo[root.currentTab.index].track_name)}, 2500);
   }
 
+  slideShowStart(){
+    let root = this
+    if(this.slideshow == true){
+      clearInterval(this.slideshowInterval)
+      this.slideshow = false
+    }
+    else if(this.slideshow == false){
+      this.slideshow = true 
+      let i = 0
+      this.slideshowInterval = setInterval(function() {
+        
+        root.selected = i
+        i += 1
+        if(i == root.trackInfo.length){
+          i = 0
+        }
+        }, 5000);
+    }
+  }
 }

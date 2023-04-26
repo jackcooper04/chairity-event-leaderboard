@@ -1,3 +1,6 @@
+:host{
+    display: grid;
+}
 mat-tab-group{
     width: 90vw;
     height: 85vh;
@@ -14,9 +17,23 @@ mat-tab-group{
     
 }
 
-mat-list-item{
+.list-item{
     border-bottom: 1px solid black;
-    font: 3rem !important;
+}
+.list-item span{
+    font-size: 1.25rem;
+}
+
+@media (max-width:1200px) {
+    .list-item span{
+        font-size: 1rem;
+    }
+}
+@media (max-width:500px) {
+    .fastestLap{
+        visibility: hidden;
+        width: 0px;
+    }
 }
 .position{
     
@@ -31,4 +48,8 @@ mat-list-item{
 .fastestLap{
     float: right;
     margin-right: 5vh;
+}
+.slideshowButton{
+    width: 90vw;
+    margin: auto;
 }

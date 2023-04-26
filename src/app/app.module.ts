@@ -17,7 +17,7 @@ import { PaymentFormComponent } from './Components/dashboard/payment-form/paymen
 import { SessionFormComponent } from './Components/dashboard/session-form/session-form.component';
 
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { ReactiveFormsModule } from '@angular/forms';
 import { LapToMilliPipe } from './pipes/lap-to-milli.pipe';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
@@ -39,6 +39,7 @@ const maskConfig: Partial<IConfig> = {
     SessionFormComponent,
     LapToMilliPipe,
     PaymentListComponent,
+    
 
   ],
   imports: [
@@ -49,7 +50,9 @@ const maskConfig: Partial<IConfig> = {
     MaterialModule,
     FormsModule,
     NgxMaskModule.forRoot(maskConfig),
-    
+
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},LeaderboardService, DatePipe, LapToMilliPipe],
   bootstrap: [AppComponent]

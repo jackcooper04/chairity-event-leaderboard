@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
 
   constructor(private lbService: LeaderboardService,
     @Inject(LOCALE_ID) public locale: string,){}
-
+    
 
     
   ngOnInit(): void {

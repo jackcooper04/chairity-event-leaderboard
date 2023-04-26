@@ -1,11 +1,13 @@
+<button mat-stroked-button color="warn" class="slideshowButton" (click)="slideShowStart()">Slide Show</button>
 <mat-tab-group 
     mat-stretch-tabs="true" 
     mat-align-tabs="start"
     (selectedTabChange)="onTabChanged($event)"
+    [(selectedIndex)]=selected
     >
-    <mat-tab *ngFor="let track of trackInfo ; let i = index" [attr.data-index]="i" [label]="track.track_name">
+    <mat-tab *ngFor="let track of trackInfo ; let i = index" [attr.data-index]="i" [label]="track.track_name" >
         <mat-list role="list">
-            <mat-list-item  role="listitem">
+            <mat-list-item class="list-item" role="listitem">
                     
                 <span class="postion"></span>  
                 <span class="name">Name</span> 
@@ -13,7 +15,7 @@
                 <span class="fastestLap">Fastest Lap</span>
 
             </mat-list-item>
-            <mat-list-item  role="listitem" *ngFor="let record of sessions; let i = index" [attr.data-index]="i"  [ngClass]="{'firstplace': i == 0 , 'personal': record.marker == true}">
+            <mat-list-item class="list-item" role="listitem" *ngFor="let record of sessions; let i = index" [attr.data-index]="i"  [ngClass]="{'firstplace': i == 0 , 'personal': record.marker == true}">
                     
                     <span class="postion" *ngIf="record.marker !== true">{{i+1}}</span>  
                     <span *ngIf="record.marker == true">Marker</span>

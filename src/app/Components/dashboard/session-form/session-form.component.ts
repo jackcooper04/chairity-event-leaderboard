@@ -36,9 +36,13 @@ export class SessionFormComponent {
     this.tracksSub = this.lbService.getTrackUpdateListener().subscribe((data: any) => {
       this.trackOptions = data.tracks
     });
+    
     this.userSub = this.lbService.getUsersListUpdateListener().subscribe((data:any)=>{
       this.users = data.users
     })
+    let interval:any;
+    let root = this
+    interval = setInterval(function () {root.lbService.getUsers()}, 5000);
 
   }
 

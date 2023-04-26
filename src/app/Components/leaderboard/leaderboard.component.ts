@@ -54,11 +54,11 @@ export class LeaderboardComponent implements OnInit {
 
   onTabChanged(value: any) {
     this.currentTab = value
-    
+    clearInterval(this.interval)
     this.leaderboardService.getSessions(this.trackInfo[value.index].track_name)
+    
     let root = this
-    clearInterval(root.interval)
-    root.interval = setInterval(function () {root.leaderboardService.getSessions(root.trackInfo[root.currentTab.index].track_name)}, 2500);
+    this.interval = setInterval(function () {root.leaderboardService.getSessions(root.trackInfo[root.currentTab.index].track_name)}, 2500);
   }
 
   slideShowStart(){

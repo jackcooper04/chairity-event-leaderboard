@@ -13,12 +13,13 @@ mat-tab-group{
     background-color: rgb(255, 196, 0);
 }
 .personal{
-    background-color: rgba(104, 53, 247, 0.712);
+    background-color:   #0e85d48e;;
     
 }
 
 .list-item{
     border-bottom: 1px solid black;
+
 }
 .list-item span{
     font-size: 1.25rem;

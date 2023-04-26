@@ -77,7 +77,7 @@ export class LeaderboardComponent implements OnInit {
         if(i == root.trackInfo.length){
           i = 0
         }
-        }, 5000);
+        }, 10000);
     }
   }
 }
